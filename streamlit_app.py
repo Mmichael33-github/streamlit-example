@@ -19,7 +19,7 @@ In the meantime, below is an example of what you can do with just a few lines of
 with st.echo(code_location='below'):
     total_points = st.slider("Number of points in spiral", 1, 5000, 4500)
     num_turns = st.slider("Number of turns in spiral", 1, 100, 18)
-    
+    num_turns2 = st.slider("Number of turns in spiral_2", 1, 150, 10)
     text = st.text_input("Enter your medication")
     bt = st.button("Search")
     
