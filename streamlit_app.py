@@ -24,7 +24,7 @@ with st.echo(code_location='below'):
     bt = st.button("Search")
     
     TEXT = st.text_input("Test")
-    sl = st.slider
+    sl = st.slider('slider_test')
 
     Point = namedtuple('Point', 'x y')
     data = []
