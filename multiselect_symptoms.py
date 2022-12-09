@@ -14,7 +14,7 @@ drugs = drugs.dropna()
 side_effects.columns = ['side_effect', 'patients', 'percentage', 'drug']
 drugs.columns = ['input', 'specific_drug', 'generic_name']
 
-# create a list of unique generic names, without duplicated entries
+# create a list of unique generic names, without duplicated entries 
 unq_generic = drugs['generic_name'].unique().tolist()
 
 # create multiselect:
@@ -27,5 +27,5 @@ user_drugs = drugs.query('generic_name in @user_generics')['specific_drug'].uniq
 user_side_effects = side_effects.query('drug in @user_drugs').sort_values(
     'percentage', ascending = False)
 
-st.write('The drugs you entered are: ',
+st.write('The drugs you entered are: ', 
          user_side_effects['side_effect'].unique().tolist())
