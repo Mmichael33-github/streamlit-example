@@ -1,31 +1,44 @@
-## libraries
+from collections import namedtuple
+import altair as alt
+import math
 import pandas as pd
 import streamlit as st
 
-# upload the datasets
-drugs = pd.read_csv('drugs.csv')
-side_effects = pd.read_csv('side_effects.csv')
+"""
+# Welcome to Streamlit!
 
-# clear 'drugs' dataset - remove unnecessary columns
-drugs = drugs[['input', 'specific drug', 'generic name']]
-drugs = drugs.dropna()
+Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
 
-# rename dataset's columns
-side_effects.columns = ['side_effect', 'patients', 'percentage', 'drug']
-drugs.columns = ['input', 'specific_drug', 'generic_name']
+If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
+forums](https://discuss.streamlit.io).
 
-# create a list of unique generic names, without duplicated entries
-unq_generic = drugs['generic_name'].unique().tolist()
+In the meantime, below is an example of what you can do with just a few lines of code:
+"""
 
-# create multiselect:
-user_generics = st.multiselect('Please enter the medication you want to check:',
-                               options = unq_generic)
 
-# create a list of unique drug names for user's generics:
-user_drugs = drugs.query('generic_name in @user_generics')['specific_drug'].unique().tolist()
+with st.echo(code_location='below'):
+    total_points = st.slider("Number of points in spiral", 1, 2000, 500)
+    num_turns = st.slider("Number of turns in spiral", 1, 100, 18)
+    num_turns2 = st.slider("Number of turns in spiral_2", 1, 50, 30)
+    text = st.text_input("Enter your medication")
+    bt = st.button("Search")
+    
+    TEXT = st.text_input("Test")
+    sl = st.slider('slider_test')
 
-user_side_effects = side_effects.query('drug in @user_drugs').sort_values(
-    'percentage', ascending = False)
+    Point = namedtuple('Point', 'x y')
+    data = []
 
-st.write('The drugs you entered are: ',
-         user_side_effects['side_effect'].unique().tolist())
+    points_per_turn = total_points / num_turns
+
+    for curr_point_num in range(total_points):
+        curr_turn, i = divmod(curr_point_num, points_per_turn)
+        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
+        radius = curr_point_num / total_points
+        x = radius * math.cos(angle)
+        y = radius * math.sin(angle)
+        data.append(Point(x, y))
+
+    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
+        .mark_circle(color='#7374BB', opacity=0.8)
+        .encode(x='x:Q', y='y:Q'))
