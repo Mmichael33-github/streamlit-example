@@ -8,7 +8,7 @@ drugs = pd.read_csv('drugs_df.csv', usecols = ['brand_name', 'generic_name'])
 side_effects = pd.read_csv('side_effects.csv')
 
 # rename columns
-side_effects.columns = ['side_effect', 'patients', 'percentage', 'drug']
+side_effects.columns = ['drug', 'side_effect', 'patients', 'percentage',]
 
 # remove empty values (as for this version, there is one NA in 'patients'):
 side_effects = side_effects.dropna()
