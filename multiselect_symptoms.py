@@ -94,6 +94,6 @@ output_df = output_df.sort_values(
 st.dataframe(output_df[['brand_name', 
                         'side_effect',
                         'total_percentage', 
-                        'percentage_by_drug']].style.format({'total_percentage': '{:.2%}',
+                        st.bar_chart('percentage_by_drug')]].style.format({'total_percentage': '{:.2%}',
                                                      'percentage': '{:.2%}'}),
              use_container_width = True)
