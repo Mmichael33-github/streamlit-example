@@ -91,9 +91,9 @@ output_df = output_df.sort_values(
 
 
 # print the output table:
-st.dataframe(output_df[['side_effect', 
+st.dataframe(output_df[['brand_name','side_effect', 
                         'total_percentage', 
-                        'brand_name', 
+                        'side_effect',
                         'percentage_by_drug']].style.format({'total_percentage': '{:.2%}',
                                                      'percentage': '{:.2%}'}),
              use_container_width = True)
